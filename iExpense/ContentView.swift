@@ -14,10 +14,23 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(expenses.items) { item in
-                    ExpenseListItem(item: item)
+                if !expenses.personalExpenses.isEmpty {
+                    Section("Personal Expenses") {
+                        ForEach(expenses.items.filter { $0.type == "Personal" }) { item in
+                            ExpenseListItem(item: item)
+                        }
+                        .onDelete(perform: removeItems)
+                    }
                 }
-                .onDelete(perform: removeItems)
+                
+                if !expenses.businessExpenses.isEmpty {
+                    Section("Business Expenses") {
+                        ForEach(expenses.items.filter { $0.type == "Business" }) { item in
+                            ExpenseListItem(item: item)
+                        }
+                        .onDelete(perform: removeItems)
+                    }
+                }
             }
             .navigationTitle("iExpenses")
             .toolbar {

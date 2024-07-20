@@ -34,8 +34,14 @@ struct ContentView: View {
             }
             .navigationTitle("iExpenses")
             .toolbar {
-                Button("Add Expense", systemImage: "plus") {
-                    showingAddExpense = true
+//                Button("Add Expense", systemImage: "plus") {
+//                    showingAddExpense = true
+//                }
+                NavigationLink() {
+                    AddView(expenses: expenses)
+                } label: {
+                    Image(systemName: "plus")
+                        .accessibilityLabel(Text("Add expense"))
                 }
             }
         }

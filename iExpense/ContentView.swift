@@ -14,34 +14,17 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                if !expenses.personalExpenses.isEmpty {
-                    Section("Personal Expenses") {
-                        ForEach(expenses.items.filter { $0.type == "Personal" }) { item in
-                            ExpenseListItem(item: item)
-                        }
-                        .onDelete(perform: removeItems)
-                    }
+                ForEach(expenses.items) { item in
+                    ExpenseListItem(item: item)
                 }
-                
-                if !expenses.businessExpenses.isEmpty {
-                    Section("Business Expenses") {
-                        ForEach(expenses.items.filter { $0.type == "Business" }) { item in
-                            ExpenseListItem(item: item)
-                        }
-                        .onDelete(perform: removeItems)
-                    }
-                }
+                .onDelete(perform: removeItems)
             }
             .navigationTitle("iExpenses")
             .toolbar {
-//                Button("Add Expense", systemImage: "plus") {
-//                    showingAddExpense = true
-//                }
                 NavigationLink() {
                     AddView(expenses: expenses)
                 } label: {
-                    Image(systemName: "plus")
-                        .accessibilityLabel(Text("Add expense"))
+                    Button("Add expense", systemImage: "plus") {  }
                 }
             }
         }

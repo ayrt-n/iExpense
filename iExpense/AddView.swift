@@ -26,7 +26,7 @@ struct AddView: View {
                     ForEach(types, id:\.self) { Text($0) }
                 }
                 
-                TextField("Amount", value: $amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                TextField("Amount", value: $amount, format: .currency(code: "USD"))
                     .keyboardType(.decimalPad)
             }
             .navigationTitle("Add new expense")

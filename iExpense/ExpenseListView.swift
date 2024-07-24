@@ -27,9 +27,15 @@ struct ExpenseListView: View {
             modelContext.delete(item)
         }
     }
+    
+    init(expenseTypes: [String], sortOrder: [SortDescriptor<ExpenseItem>]) {
+        _expenses = Query(filter: #Predicate<ExpenseItem> { item in
+            expenseTypes.contains(item.type)
+        }, sort: sortOrder)
+    }
 }
 
 #Preview {
-    ExpenseListView()
+    ExpenseListView(expenseTypes: ["Personal", "Business"], sortOrder: [SortDescriptor(\ExpenseItem.name)])
         .modelContainer(for: ExpenseItem.self)
 }
